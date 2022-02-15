@@ -1,0 +1,29 @@
+package com.mamata.fsd.pixo.mygallery;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mamata.fsd.mygallery.ConsultMyGallery;
+
+import java.util.Set;
+
+@RestController
+@RequestMapping("/api/my-gallery")
+@CrossOrigin(origins = "*")
+public class MyGalleryResource {
+
+    @Autowired
+    private ConsultMyGallery consultMyGallery;
+
+    @RequestMapping(value = "", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Set<String>> getMyImageIds() {
+        Set<String> allPictureIds = consultMyGallery.getAllImageIds();
+        return new ResponseEntity<>(allPictureIds, HttpStatus.OK);
+    }
+}
